@@ -1,0 +1,81 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: This create a public facing load-balancer.
+Parameters: 
+  EnvironmentName: 
+    Type: String
+    Default: Demo1
+    Description: Name of the environment.
+
+Resources:
+  # Load balancers for getting traffic to containers.
+  # This sample template creates public facing load balancer:
+  PublicLoadBalancerSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Access to the public facing load balancer
+      VpcId: 
+        Fn::ImportValue:
+          !Join [ ':', [ !Ref EnvironmentName, 'VPCId' ] ]
+      SecurityGroupIngress:
+          # Allow access to ALB from anywhere on the internet
+          - CidrIp: 0.0.0.0/0
+            IpProtocol: -1
+  PublicLoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Scheme: internet-facing
+      LoadBalancerAttributes:
+        - Key: idle_timeout.timeout_seconds
+          Value: '30'
+      Subnets:
+        # The load balancer is placed into the public subnets, so that traffic
+        # from the internet can reach the load balancer directly via the internet gateway
+        - Fn::ImportValue:
+            !Join [ ':', [ !Ref EnvironmentName, 'PublicSubnetOne' ] ]
+        - Fn::ImportValue:
+            !Join [ ':', [ !Ref EnvironmentName, 'PublicSubnetTwo' ] ]
+      SecurityGroups: [!Ref 'PublicLoadBalancerSG']
+  # A dummy target group is used to setup the ALB to just drop traffic
+  # initially, before any real service target groups have been added.
+  DummyTargetGroupPublic:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckIntervalSeconds: 6
+      HealthCheckPath: /
+      HealthCheckProtocol: HTTP
+      HealthCheckTimeoutSeconds: 5
+      HealthyThresholdCount: 2
+      Name: !Join ['-', [!Ref 'AWS::StackName', 'drop-1']]
+      Port: 80
+      Protocol: HTTP
+      UnhealthyThresholdCount: 2
+      VpcId: 
+        Fn::ImportValue:
+          !Join [ ':', [ !Ref EnvironmentName, 'VPCId' ] ]      
+  PublicLoadBalancerListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    DependsOn:
+      - PublicLoadBalancer
+    Properties:
+      DefaultActions:
+        - TargetGroupArn: !Ref 'DummyTargetGroupPublic'
+          Type: 'forward'
+      LoadBalancerArn: !Ref 'PublicLoadBalancer'
+      Port: 80
+      Protocol: HTTP
+Outputs:
+  ExternalUrl:
+    Description: The url of the external load balancer
+    Value: !Join ['', ['http://', !GetAtt 'PublicLoadBalancer.DNSName']]
+    Export:
+      Name: !Join [ ':', [ !Ref EnvironmentName, 'ExternalUrl' ] ]     
+  PublicLoadBalancerListener:
+    Description: PublicLoadBalancerListener
+    Value: !Ref 'PublicLoadBalancerListener'
+    Export:
+      Name: !Join [ ':', [ !Ref 'EnvironmentName', 'PublicLoadBalancerListener' ] ]        
+  PublicLoadBalancerSG:
+    Description: The ARN of the Publiv Loabbalancer SG
+    Value: !Ref 'PublicLoadBalancerSG'
+    Export:
+      Name: !Join [':', [!Ref 'EnvironmentName', 'PublicLoadBalancerSG']]      

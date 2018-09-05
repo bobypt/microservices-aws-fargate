@@ -1,0 +1,19 @@
+{
+  "name": "order-service",
+  "version": "1.0.0",
+  "description": "microservices demo - order service",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [
+    "node",
+    "docker"
+  ],
+  "author": "Boby Thomas",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "uuid": "^3.3.2"
+  }
+}
