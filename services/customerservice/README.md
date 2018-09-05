@@ -14,10 +14,10 @@
  get customer details -  ```curl localhost:8080/api/v1/customers/123456```
 
  ## Build docker image
-```docker build -t customer-service .```
+```docker build -t msdemo/customerservice .```
 
 ## Start a container
-```docker run -p 8080:8080 --name customer-service -t customer-service```
+```docker run -p 8080:8080 --name customer-service -t msdemo/customerservice```
 
 ## Stop the server
 ```docker rm -f customer-service```

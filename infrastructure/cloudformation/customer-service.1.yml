@@ -7,11 +7,11 @@ Parameters:
     Description: Name of the environment.
   ServiceName:
     Type: String
-    Default: "api-service"
+    Default: "customer-service"
     Description: Service name
   ImageUrl:
     Type: String
-    Default: 708464146667.dkr.ecr.ap-southeast-2.amazonaws.com/node-demo-api:latest
+    Default: 708464146667.dkr.ecr.ap-southeast-2.amazonaws.com/msdemo/customerservice:latest
     Description: The url of a docker image
   ContainerPort:
     Type: Number
@@ -27,7 +27,7 @@ Parameters:
     Description: How much memory in megabytes to give the container
   Path:
     Type: String
-    Default: "*"
+    Default: "/api/v1/customers/*"
     Description: A path on the public load balancer.
   Priority:
     Type: Number
@@ -35,7 +35,7 @@ Parameters:
     Description: The priority for the routing rule.
   DesiredCount:
     Type: Number
-    Default: 1
+    Default: 2
     Description: How many copies of the service task to run
   Role:
     Type: String

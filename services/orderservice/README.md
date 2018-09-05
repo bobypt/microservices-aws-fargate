@@ -14,10 +14,10 @@
  get order details -  ```curl localhost:8080/api/v1/orders/875855955```
 
  ## Build docker image
-```docker build -t order-service .```
+```docker build -t msdemo/orderservice .```
 
 ## Start a container
-```docker run -p 8080:8080 --name order-service -t order-service```
+```docker run -p 8080:8080 --name order-service -t msdemo/orderservice```
 
 ## Stop the server
 ```docker rm -f order-service```
