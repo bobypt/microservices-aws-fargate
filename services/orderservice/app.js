@@ -6,7 +6,7 @@ const uuidv1 = require('uuid/v1');
 // Constants
 const PORT = 8080;
 const ID = uuidv1();
-const CONTEXT_BASE = "/api/v1/orders"
+const CONTEXT_BASE = "/api/v1/orderservice"
 
 // App
 const app = express();
@@ -22,7 +22,7 @@ app.get(CONTEXT_BASE+'/health', (req, res) => {
   res.json({instanceId : ID, version: "1", status: "OK"});
 });
 
-app.get(CONTEXT_BASE+'/:id', (req, res) => {
+app.get(CONTEXT_BASE+'/orders/:id', (req, res) => {
   res.json({id: req.params.id, description: "Order for Name"+ req.params.id});
 });
 

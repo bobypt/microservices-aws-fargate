@@ -25,7 +25,7 @@ function push() {
     docker tag msdemo/orderservice:latest $DOCKER_REPO_URI/orderservice:latest
 
     docker push $DOCKER_REPO_URI/customerservice:latest
-    docker push $DOCKER_REPO_URI/customerservice:latest
+    docker push $DOCKER_REPO_URI/orderservice:latest
 }
 
 function options() {

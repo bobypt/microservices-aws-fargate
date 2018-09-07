@@ -5,7 +5,7 @@ Microservices example using Docker + AWS + ECS(Fargate)
 
  - Build docker images 
  
- ```./start build```
+ ```./start.sh build```
 
  - Create ECR repo 
  
