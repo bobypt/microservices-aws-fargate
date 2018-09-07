@@ -1,0 +1,49 @@
+Description: >
+
+    This template create vpc, nat, load-balancer, ecs cluster and deploy services.
+
+    Author: Boby Thomas<bobypt@gmail.com>
+
+Resources:
+
+    VPC:
+        Type: AWS::CloudFormation::Stack
+        Properties:
+            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/msdemo-ecs-refarch/cloudformation/vpc-network.yml
+            Parameters:
+                EnvironmentName: msdemo
+    NAT:
+        Type: AWS::CloudFormation::Stack
+        Properties:
+            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/msdemo-ecs-refarch/cloudformation/nat-gateway.yml
+            Parameters:
+                EnvironmentName: msdemo
+    ALB:
+        Type: AWS::CloudFormation::Stack
+        Properties:
+            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/msdemo-ecs-refarch/cloudformation/load-balancer.yml
+            Parameters:
+                EnvironmentName: msdemo  
+    ECS:
+        Type: AWS::CloudFormation::Stack
+        Properties:
+            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/msdemo-ecs-refarch/cloudformation/ecs-cluster.yml
+            Parameters:
+                EnvironmentName: msdemo  
+    OrderService:
+        Type: AWS::CloudFormation::Stack
+        Properties:
+            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/msdemo-ecs-refarch/cloudformation/order-service.yml
+            Parameters:
+                EnvironmentName: msdemo 
+    CustomerService:
+        Type: AWS::CloudFormation::Stack
+        Properties:
+            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/msdemo-ecs-refarch/cloudformation/customer-service.yml
+            Parameters:
+                EnvironmentName: msdemo                   
+
+Outputs:
+    LoadBalancerUrl: 
+        Description: Load balancer url
+        Value: !GetAtt ALB.Outputs.ExternalUrl
