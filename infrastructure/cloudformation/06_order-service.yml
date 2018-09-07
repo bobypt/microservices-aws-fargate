@@ -7,11 +7,11 @@ Parameters:
     Description: Name of the environment.
   ServiceName:
     Type: String
-    Default: "customer-service"
+    Default: "order-service"
     Description: Service name
   ImageUrl:
     Type: String
-    Default: 708464146667.dkr.ecr.ap-southeast-2.amazonaws.com/msdemo/customerservice:latest
+    Default: 708464146667.dkr.ecr.ap-southeast-2.amazonaws.com/msdemo/orderservice:latest
     Description: The url of a docker image
   ContainerPort:
     Type: Number
@@ -27,7 +27,7 @@ Parameters:
     Description: How much memory in megabytes to give the container
   Path:
     Type: String
-    Default: "/api/v1/customerservice/*"
+    Default: "/api/v1/orderservice/*"
     Description: A path on the public load balancer.
   Priority:
     Type: Number
@@ -131,7 +131,7 @@ Resources:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
       HealthCheckIntervalSeconds: 20
-      HealthCheckPath: /health
+      HealthCheckPath: /api/v1/orderservice/health
       HealthCheckProtocol: HTTP
       HealthCheckTimeoutSeconds: 5
       HealthyThresholdCount: 2
