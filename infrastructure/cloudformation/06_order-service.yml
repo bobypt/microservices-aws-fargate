@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: API service
+Description: API service - Order service
 Parameters:
   EnvironmentName: 
     Type: String
@@ -31,7 +31,7 @@ Parameters:
     Description: A path on the public load balancer.
   Priority:
     Type: Number
-    Default: 1
+    Default: 2
     Description: The priority for the routing rule.
   DesiredCount:
     Type: Number

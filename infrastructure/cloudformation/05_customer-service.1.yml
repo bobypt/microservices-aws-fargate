@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: API service
+Description: API service - customer service
 Parameters:
   EnvironmentName: 
     Type: String
@@ -131,7 +131,7 @@ Resources:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
       HealthCheckIntervalSeconds: 20
-      HealthCheckPath: /api/v1/orderservice/health
+      HealthCheckPath: /api/v1/customerservice/health
       HealthCheckProtocol: HTTP
       HealthCheckTimeoutSeconds: 5
       HealthyThresholdCount: 2

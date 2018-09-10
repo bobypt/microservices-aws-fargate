@@ -9,37 +9,37 @@ Resources:
     VPC:
         Type: AWS::CloudFormation::Stack
         Properties:
-            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/msdemo-ecs-refarch/cloudformation/vpc-network.yml
+            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/msdemo-ecs-refarch/cloudformation/01_vpc-network.yml
             Parameters:
                 EnvironmentName: msdemo
     NAT:
         Type: AWS::CloudFormation::Stack
         Properties:
-            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/msdemo-ecs-refarch/cloudformation/nat-gateway.yml
+            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/msdemo-ecs-refarch/cloudformation/02_nat-gateway.yml
             Parameters:
                 EnvironmentName: msdemo
     ALB:
         Type: AWS::CloudFormation::Stack
         Properties:
-            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/msdemo-ecs-refarch/cloudformation/load-balancer.yml
+            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/msdemo-ecs-refarch/cloudformation/03_load-balancer.yml
             Parameters:
                 EnvironmentName: msdemo  
     ECS:
         Type: AWS::CloudFormation::Stack
         Properties:
-            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/msdemo-ecs-refarch/cloudformation/ecs-cluster.yml
+            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/msdemo-ecs-refarch/cloudformation/04_ecs-cluster.yml
             Parameters:
                 EnvironmentName: msdemo  
     OrderService:
         Type: AWS::CloudFormation::Stack
         Properties:
-            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/msdemo-ecs-refarch/cloudformation/order-service.yml
+            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/msdemo-ecs-refarch/cloudformation/05_order-service.yml
             Parameters:
                 EnvironmentName: msdemo 
     CustomerService:
         Type: AWS::CloudFormation::Stack
         Properties:
-            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/msdemo-ecs-refarch/cloudformation/customer-service.yml
+            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/msdemo-ecs-refarch/cloudformation/06_customer-service.yml
             Parameters:
                 EnvironmentName: msdemo                   
 
